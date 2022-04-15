@@ -9,14 +9,12 @@ To write a program to implement the simple linear regression model for predictin
 
 ## Algorithm
 ```
-1.For Gradient Design use the standard libraries in the python.
-2.Use the .isnull()function to check the empty .
-3.Use the default function.
-4.Use the loop function for a linear equation.
-5.Predict the value for the y.
-6.Print the program.
-7.plot the graph by using scatters keyword.
-8.End the program
+1.Import the standard Libraries.
+2.Set variables for assigning dataset values.
+3.Import linear regression from sklearn.
+4.Assign the points for representing in the graph.
+5.Predict the regression for marks by using the representation of the graph.
+6.Compare the graphs and hence we obtained the linear regression for the given datas.
 ```
 
 ## Program:
@@ -28,42 +26,34 @@ RegisterNumber: 212221240028
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-data=pd.read_csv("/content/student_scores - student_scores.csv")
-data.head()
-data.isnull().sum()
-x=data.Hours
-x.head()
-y=data.Scores
-y.head()
-n=len(x)
-m=0
-c=0
-l=0.001
-loss=[]
-for i in range(10000):
-    ypred=m*x+c
-    MSE=(1/n)*sum((ypred-y)*2)
-    dm=(2/n)*sum(x*(ypred-y))
-    dc=(2/n)*sum(ypred-y)
-    c=c-l*dc
-    m=m-l*dm
-    loss.append(MSE)
-    #print(m,c)
-    ypred=m*x+c
-plt.scatter(x,y,color="purple")
-plt.plot(x,ypred)
-plt.xlabel("study hours")
-plt.ylabel("scores")
-plt.title("study hour vs scores")
-plt.plot(loss)
-plt.xlabel("iteration")
-plt.ylabel("loss")
+dataset = pd.read_csv('student_scores.csv')
+dataset.head()
+X=dataset.iloc[:,:-1].values
+Y=dataset.iloc[:,1].values
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size =
+1/3,random_state = 0)
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train,Y_train)
+Y_pred = regressor.predict(X_test)
+plt.scatter(X_train,Y_train,color="purple")
+plt.plot(X_train,regressor.predict(X_train),color="green")
+plt.title("Hours vs Scores (Training Set)")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
+plt.scatter(X_test,Y_test,color="brown")
+plt.plot(X_train,regressor.predict(X_train),color="blue")
+plt.xlabel("Hours")
+plt.ylabel("Scores")
+plt.show()
 */
 ```
 
 ## Output:
-![Screenshot (21)](https://user-images.githubusercontent.com/94677128/162013965-abd76c6b-61e4-40a2-b6ab-4fa5be758aeb.png)
-![Screenshot (22)](https://user-images.githubusercontent.com/94677128/162014196-e7d94897-b009-4231-9057-a733c83fbf8b.png)
+![Screenshot (34)](https://user-images.githubusercontent.com/94677128/163545660-7cc3b4d5-4b98-4c50-a5a3-5a5f566b69c4.png)
+![Screenshot (35)](https://user-images.githubusercontent.com/94677128/163545739-2bedc492-b8d0-41de-8b36-7b8832f12980.png)
 
 
 
